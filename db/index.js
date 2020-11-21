@@ -3,13 +3,13 @@
 require("dotenv").config()
 const path = require("path")
 
-MySQL_Connection = {
+const MySQLConnection = {
 	host: process.env.DB_HOST,
 	user: process.env.DB_USER,
 	password: process.env.DB_PASS,
 }
 
-MSSQL_Connection = {
+const MSSQLConnection = {
 	host: process.env.DB_HOST,
 	user: process.env.DB_USER,
 	password: process.env.DB_PASS,
@@ -23,10 +23,8 @@ MSSQL_Connection = {
 const knex = require("knex")({
 	client: process.env.DB_CLIENT,
 	connection:
-		process.env.DB_CLIENT === "mssql" ? MSSQL_Connection : MySQL_Connection,
+		process.env.DB_CLIENT === "mssql" ? MSSQLConnection : MySQLConnection,
 	debug: process.env.NODE_ENV === "development",
 })
-
-knex.debug = true
 
 module.exports = knex
